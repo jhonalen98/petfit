@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetFit - Mi Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#E77C24',
+                            dark: '#1A1311',
+                            yellow: '#FFD000',
+                            lightBg: '#FAFAF9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-lightBg text-brand-dark font-sans antialiased min-h-screen flex flex-col">
+
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="logo/logo.png" alt="PetFit Logo" class="h-8 w-auto border border-dashed border-gray-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+                    <span class="hidden text-xl font-bold"><span class="text-brand-orange">Pet</span>Fit</span>
+                </div>
+                <div>
+                    <a href="index.html" class="text-sm font-medium text-gray-500 hover:text-brand-orange transition duration-300">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm h-fit">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span>📝</span> Registrar Mascota
+                </h2>
+                
+                <form id="petForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Nombre</label>
+                        <input type="text" id="petName" required placeholder="Ej. Max" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-orange text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Especie</label>
+                        <select id="petSpecies" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-orange text-sm">
+                            <option value="perro">Perro</option>
+                            <option value="gato">Gato</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Edad (Meses)</label>
+                            <input type="number" id="petAge" required min="1" placeholder="Ej. 3" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Peso (Kg)</label>
+                            <input type="number" id="petWeight" required step="0.1" min="0.1" placeholder="Ej. 4.5" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-orange text-sm">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-orange hover:bg-opacity-90 text-white font-semibold py-2.5 rounded-xl transition duration-300 text-sm shadow-sm mt-2">
+                        Agregar a PetFit
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                
+                <div id="recommendationBox" class="hidden p-4 rounded-2xl border bg-orange-50 border-orange-200 text-sm text-amber-900">
+                    <div class="flex gap-2.5">
+                        <span class="text-xl">💡</span>
+                        <div>
+                            <h4 class="font-bold text-brand-orange mb-1">Recomendación PetFit Inteligente</h4>
+                            <p id="recommendationText">Registra una mascota para ver sus alertas de salud.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span>🐾</span> Mis Mascotas Registradas
+                    </h2>
+                    
+                    <div id="petsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        </div>
+
+                    <div id="emptyState" class="text-center py-12 bg-white rounded-2xl border border-gray-100 p-6">
+                        <p class="text-gray-400 text-sm">Aún no has registrado ninguna mascota. Usa el formulario de la izquierda.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Elementos del DOM
+        const petForm = document.getElementById('petForm');
+        const petsContainer = document.getElementById('petsContainer');
+        const emptyState = document.getElementById('emptyState');
+        const recommendationBox = document.getElementById('recommendationBox');
+        const recommendationText = document.getElementById('recommendationText');
+
+        // Cargar del localStorage o iniciar arreglo vacío
+        let myPets = JSON.parse(localStorage.getItem('petfit_pets')) || [];
+
+        // Función para renderizar las tarjetas de las mascotas
+        function renderPets() {
+            petsContainer.innerHTML = '';
+            
+            if (myPets.length === 0) {
+                emptyState.classList.remove('hidden');
+                recommendationBox.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            
+            myPets.forEach((pet, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-gray-200 shadow-sm relative flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-bold text-brand-dark capitalize">${pet.name}</h3>
+                            <span class="px-2.5 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium uppercase">${pet.species}</span>
+                        </div>
+                        <p class="text-sm text-gray-500">Edad: <strong class="text-brand-dark">${pet.age} meses</strong></p>
+                        <p class="text-sm text-gray-500">Peso: <strong class="text-brand-dark">${pet.weight} Kg</strong></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="checkHealth(${index})" class="text-xs text-brand-orange font-semibold hover:underline">Ver Diagnóstico</button>
+                        <button onclick="deletePet(${index})" class="text-xs text-red-500 hover:underline">Eliminar</button>
+                    </div>
+                `;
+                petsContainer.appendChild(card);
+            });
+
+            // Por defecto analiza la última mascota agregada
+            checkHealth(myPets.length - 1);
+        }
+
+        // Sistema Experto de Recomendaciones (Condicionales lógicos basados en edad y especie)
+        function checkHealth(index) {
+            const pet = myPets[index];
+            if (!pet) return;
+
+            recommendationBox.classList.remove('hidden');
+            let message = "";
+
+            if (pet.species === 'perro') {
+                if (pet.age <= 2) {
+                    message = `Para <strong>${pet.name}</strong> (cachorro de ${pet.age} meses): Corresponde la vacuna Polivalente (Parvovirus/Moquillo) y su primera desparasitación interna. ¡Evita sacarlo a la calle todavía!`;
+                } else if (pet.age > 2 && pet.age <= 4) {
+                    message = `Para <strong>${pet.name}</strong> (${pet.age} meses): Toca el refuerzo de la vacuna Polivalente y la vacuna contra la Rabia. Su peso ideal debe evaluarse según su raza.`;
+                } else {
+                    message = `Para <strong>${pet.name}</strong> (${pet.age} meses): Ya es un perro joven/adulto. Requiere un chequeo preventivo anual, vacuna séxtuple de refuerzo y control de pulgas/garrapatas mensual debido a su peso de ${pet.weight} Kg.`;
+                }
+            } else if (pet.species === 'gato') {
+                if (pet.age <= 2) {
+                    message = `Para el gatito <strong>${pet.name}</strong> (${pet.age} meses): Corresponde la vacuna Triple Felina (Rinotraqueitis, Calicivirus y Panleucopenia). Mantén limpios sus platos separados de su arena.`;
+                } else {
+                    message = `Para <strong>${pet.name}</strong> (${pet.age} meses): Requiere refuerzo anual de Triple Felina y test de Leucemia Felina. Con ${pet.weight} Kg asegúrate de estimular su juego diario para evitar sobrepeso.`;
+                }
+            }
+
+            recommendationText.innerHTML = message;
+        }
+
+        // Manejador del Formulario
+        petForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const newPet = {
+                name: document.getElementById('petName').value,
+                species: document.getElementById('petSpecies').value,
+                age: parseInt(document.getElementById('petAge').value),
+                weight: parseFloat(document.getElementById('petWeight').value)
+            };
+
+            myPets.push(newPet);
+            localStorage.setItem('petfit_pets', JSON.stringify(myPets));
+            
+            petForm.reset();
+            renderPets();
+        });
+
+        // Eliminar mascota
+        window.deletePet = function(index) {
+            myPets.splice(index, 1);
+            localStorage.setItem('petfit_pets', JSON.stringify(myPets));
+            renderPets();
+        }
+
+        // Inicializar al cargar pantalla
+        renderPets();
+    </script>
+</body>
+</html>

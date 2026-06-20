@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetFit - Cuidado y Salud para tu Mascota</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#E77C24',
+                            dark: '#1A1311',
+                            yellow: '#FFD000',
+                            lightBg: '#FAFAF9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-brand {
+            background: linear-gradient(135deg, #FFD000 0%, #E77C24 100%);
+        }
+    </style>
+</head>
+<body class="bg-brand-lightBg text-brand-dark font-sans antialiased">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="logo/logo.png" alt="PetFit Logo" class="h-10 w-auto border border-dashed border-gray-300 p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <span class="hidden text-2xl font-bold tracking-tight"><span class="text-brand-orange">Pet</span><span class="text-brand-dark">Fit</span></span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="dashboard.html" class="text-brand-dark hover:text-brand-orange font-medium text-sm transition duration-300 px-3 py-2">
+                        Ingresar
+                    </a>
+                    <a href="dashboard.html" class="bg-brand-orange hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-xl transition duration-300 text-sm shadow-sm">
+                        Registrarse
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative overflow-hidden my-12 md:my-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <div class="flex justify-center mb-8">
+                <img src="logo/iso.png" alt="PetFit Isotipo" class="h-28 w-auto border border-dashed border-gray-300 p-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="hidden w-24 h-24 gradient-brand rounded-full items-center justify-center text-white text-5xl shadow-md">🐾</div>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-brand-dark mb-6 leading-tight">
+                El historial de salud de tu mascota, <span class="text-brand-orange">bajo control</span>
+            </h1>
+            
+            <p class="text-base sm:text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Registra a tu perro o gato, lleva el control de sus vacunas, chequeos veterinarios y recibe recomendaciones personalizadas según su edad y peso. Todo en un solo lugar.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#registro" class="w-full sm:w-auto bg-brand-orange hover:bg-opacity-90 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition duration-300 text-base text-center">
+                    Registrarse Gratis
+                </a>
+                <a href="#login" class="w-full sm:w-auto bg-white hover:bg-gray-50 text-brand-dark font-medium py-3 px-8 rounded-xl border border-gray-200 transition duration-300 text-base text-center">
+                    Ingresar a mi Cuenta
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <section id="beneficios" class="py-16 bg-white border-y border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-dark">Todo lo que necesitas para su bienestar</h2>
+                <p class="text-sm sm:text-base text-gray-500 mt-2">Diseñado especialmente para dueños responsables que aman a sus compañeros de vida.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="p-6 bg-brand-lightBg rounded-2xl border border-gray-100 shadow-sm transition duration-300">
+                    <div class="w-12 h-12 rounded-xl gradient-brand flex items-center justify-center text-white text-xl font-bold mb-4">💉</div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Control de Vacunas</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Lleva un registro digital completo del calendario de vacunación de tu mascota y nunca olvides la siguiente dosis.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-brand-lightBg rounded-2xl border border-gray-100 shadow-sm transition duration-300">
+                    <div class="w-12 h-12 rounded-xl gradient-brand flex items-center justify-center text-white text-xl font-bold mb-4">📅</div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Alertas de Chequeos</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Visualiza de manera intuitiva los próximos controles médicos, desparasitaciones y visitas al veterinario.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-brand-lightBg rounded-2xl border border-gray-100 shadow-sm transition duration-300 sm:col-span-2 md:col-span-1">
+                    <div class="w-12 h-12 rounded-xl gradient-brand flex items-center justify-center text-white text-xl font-bold mb-4">💡</div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-2">Recomendaciones</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Recibe consejos automáticos de alimentación y cuidados preventivos basados estrictamente en la edad, peso y especie.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-dark">Planes a la medida de tu hogar</h2>
+                <p class="text-sm sm:text-base text-gray-500 mt-2">Comienza gratis y escala según las necesidades de tu familia.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-dark">Plan Huella Gratis</h3>
+                        <p class="text-gray-500 text-sm mt-1">Para un control esencial de tu mascota.</p>
+                        <div class="mt-4 mb-6">
+                            <span class="text-4xl font-extrabold text-brand-dark">$0</span>
+                            <span class="text-gray-500 text-sm">/ siempre</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li>✅ Registro de 1 Mascota</li>
+                            <li>✅ Historial de vacunas básico</li>
+                            <li>✅ Acceso al panel web</li>
+                        </ul>
+                    </div>
+                    <a href="#registro" class="mt-8 block text-center bg-gray-100 hover:bg-gray-200 text-brand-dark font-semibold py-3 px-4 rounded-xl transition duration-300">
+                        Comenzar Gratis
+                    </a>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border-2 border-brand-orange shadow-sm relative flex flex-col justify-between">
+                    <span class="absolute top-0 right-6 transform -translate-y-1/2 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Popular</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-dark">Plan PetFit Pro</h3>
+                        <p class="text-gray-500 text-sm mt-1">El cuidado más completo sin límites.</p>
+                        <div class="mt-4 mb-6">
+                            <span class="text-4xl font-extrabold text-brand-dark">$4.99</span>
+                            <span class="text-gray-500 text-sm">/ al mes</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="text-brand-dark font-medium">✅ Mascotas ilimitadas</li>
+                            <li>✅ Alertas automáticas por WhatsApp</li>
+                            <li>✅ Recomendaciones veterinarias</li>
+                            <li>✅ Exportar historial en PDF</li>
+                        </ul>
+                    </div>
+                    <a href="#registro" class="mt-8 block text-center bg-brand-orange hover:bg-opacity-90 text-white font-semibold py-3 px-4 rounded-xl transition duration-300">
+                        Unirme a Pro
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-gray-400 py-8 border-t border-gray-800 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-2">
+                <img src="logo/logo_blanco.png" alt="PetFit Logo" class="h-6 w-auto border border-dashed border-gray-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+                <span class="hidden text-lg font-bold text-white"><span class="text-brand-orange">Pet</span>Fit</span>
+            </div>
+            
+            <p class="text-xs text-center sm:text-right">
+                &copy; 2026 PetFit. Proyecto grupal de Emprendimiento y Desarrollo de Software.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
